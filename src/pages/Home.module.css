@@ -1,0 +1,49 @@
+.welcome {
+  font-size: 2.4rem;
+}
+
+.welcome,
+.subheading {
+  text-align: center;
+  color: #f4f4f4;
+}
+
+.subheading {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin: 1rem 0;
+}
+
+.get_started_box {
+  margin: auto;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+a.get_started {
+  text-align: center;
+  padding: 1.5rem 5rem;
+  border-radius: 3rem;
+  margin: auto;
+  font-size: 1.2rem;
+  color: #f4f4f4;
+  background: rgb(241, 166, 25);
+  transition: 0.5s ease-out;
+}
+
+a.get_started:hover {
+  background: rgb(226, 142, 16);
+  transition: 0.5s ease-in;
+}
+
+.thumbnail {
+  padding: 1rem;
+  height: 100vh;
+  width: 100%;
+  margin: auto;
+  max-width: 1275px;
+  background: url('../assets/receipt-sync.png') no-repeat center center/contain;
+}
