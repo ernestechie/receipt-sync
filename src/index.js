@@ -1,15 +1,17 @@
-// import { ThemeProvider } from '@mui/material';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-// import { theme } from './theme';
+import { AuthContextProvider } from './context/authContext';
+import { Toaster } from 'react-hot-toast';
+
 import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    {/* <ThemeProvider theme={theme}> */}
-    <App />
-    {/* </ThemeProvider> */}
+    <AuthContextProvider>
+      <Toaster position='top-center' reverseOrder={false} />
+      <App />
+    </AuthContextProvider>
   </React.StrictMode>
 );

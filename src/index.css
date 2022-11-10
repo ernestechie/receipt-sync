@@ -14,7 +14,7 @@ body {
 }
 
 .page {
-  padding-top: 8rem;
+  padding-top: 6rem;
   min-height: 100vh;
 }
 
@@ -41,4 +41,45 @@ a {
   color: #fff;
   font-size: 1.1rem;
   border-radius: 1rem;
+}
+
+.loading-spinner-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.loading-spinner-container * {
+  z-index: 100;
+}
+
+.loading-spinner {
+  width: 6rem;
+  height: 6rem;
+  margin: 1rem;
+  border-width: 1rem;
+  border-style: solid;
+  border-color: #f1a619 transparent #fff transparent;
+  animation: rotate 1s linear infinite;
+  border-radius: 50%;
+  z-index: inherit;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }

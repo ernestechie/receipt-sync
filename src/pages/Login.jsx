@@ -1,10 +1,14 @@
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { Link, useNavigate } from 'react-router-dom';
+import { Navbar, Spinner } from '../components';
 import classes from './Login.module.css';
+import { getAuth } from 'firebase/auth';
 
 const Login = () => {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     email: '',
@@ -23,58 +27,63 @@ const Login = () => {
   const isFormValid = email.trim().length > 0 && password.trim().length > 0;
 
   const loginUserHandler = async (e) => {
-    if (isFormValid) {
-      const user = JSON.parse(localStorage.getItem('user'));
-      // console.log(user.email, user.password);
-
-      if (user.email === email && user.password === password) {
-        console.log('Logged In', user);
-        navigate('/dashboard');
-      } else {
-        console.log('User does not exist');
-      }
-    } else {
-      console.log('Check form input and try again');
-    }
-
     e.preventDefault();
+    if (isFormValid) {
+      setIsLoading(true);
+      try {
+        const auth = getAuth();
+        const user = await signInWithEmailAndPassword(auth, email, password);
+        console.log(user);
+
+        navigate('/dashboard');
+      } catch (error) {
+        console.log(error);
+      }
+      setIsLoading(false);
+    } else {
+      toast.error('Please check input');
+    }
   };
 
   return (
-    <section className='page'>
-      <h2>Login to your account</h2>
-      <form className={classes.login_form}>
-        <input
-          type='email'
-          id='email'
-          placeholder='Email'
-          value={email}
-          onChange={formInputHandler}
-        />
-        <input
-          type='password'
-          id='password'
-          placeholder='Password'
-          value={password}
-          onChange={formInputHandler}
-        />
-        <button
-          type='submit'
-          className={classes.login_btn}
-          onClick={loginUserHandler}
-        >
-          Sign in
-        </button>
+    <>
+      {isLoading && <Spinner />}
+      <Navbar />
+      <section className='page'>
+        <h2>Login to your account</h2>
+        <form className={classes.login_form}>
+          <input
+            type='email'
+            id='email'
+            placeholder='Email'
+            value={email}
+            onChange={formInputHandler}
+          />
+          <input
+            type='password'
+            id='password'
+            placeholder='Password'
+            value={password}
+            onChange={formInputHandler}
+          />
+          <button
+            type='submit'
+            className={classes.login_btn}
+            onClick={loginUserHandler}
+          >
+            Sign in
+          </button>
 
-        <p>
-          Don't have an account?{' '}
-          <Link to='/register' className='accent'>
-            {' '}
-            Register
-          </Link>
-        </p>
-      </form>
-    </section>
+          <p>
+            Don't have an account?{' '}
+            <Link to='/register' className='accent'>
+              {' '}
+              Register
+            </Link>
+          </p>
+        </form>
+      </section>
+    </>
   );
 };
 

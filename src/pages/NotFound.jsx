@@ -1,7 +1,15 @@
 import React from 'react';
+import { Navbar } from '../components';
 
 const NotFound = () => {
-  return <div>Page Not Found</div>;
+  return (
+    <>
+      <Navbar />
+      <div>
+        <h1>Page Not Found</h1>
+      </div>
+    </>
+  );
 };
 
 export default NotFound;

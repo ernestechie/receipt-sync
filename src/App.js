@@ -1,19 +1,23 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import { Home, Login, NotFound, Register } from './pages';
+import { PrivateRoute } from './components';
+import { Home, Login, NotFound, Register, Welcome } from './pages';
 
 const App = () => {
   return (
-    <Router>
-      <Navbar />
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} />
-        <Route path='*' element={<NotFound />} />
-      </Routes>
-    </Router>
+    <>
+      <Router>
+        <Routes>
+          <Route path='/dashboard' element={<PrivateRoute />}>
+            <Route path='/dashboard' element={<Welcome />} />
+          </Route>
+          <Route path='/' element={<Home />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='*' element={<NotFound />} />
+        </Routes>
+      </Router>
+    </>
   );
 };
 
